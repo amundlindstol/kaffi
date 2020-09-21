@@ -1,9 +1,19 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import AddCup from "./components/functions/addCup";
+import AddCup from "./components/firebase/addCup";
+import Graph from "./components/statistics/Graph";
+import GetCups from "./components/functions/getCups";
+import {CoffeeDataContext} from "./contexts/statistics";
 
-function App() {
+const App = () => {
+  const context = useContext(CoffeeDataContext);
+  const [data, setData] = useState([]);
+
+  useEffect(()=>{
+    context.then(res => {
+      setData(res)})
+  })
   return (
     <div className="App">
       <header className="App-header">
@@ -11,6 +21,8 @@ function App() {
         <h1 className={"header-text"}>Register Kaffi</h1>
       </header>
         <AddCup/>
+        <GetCups/>
+      <Graph data={data}/>
     </div>
   );
 }
