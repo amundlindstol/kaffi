@@ -1,24 +1,25 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import AddCup from "./components/firebase/addCup";
+import Graph from "./components/statistics/Graph";
+import {CoffeeDataContext} from "./contexts/statistics";
 
-function App() {
+const App = () => {
+  const context = useContext(CoffeeDataContext);
+  const [data, setData] = useState([]);
+
+  useEffect(()=>{
+    context.then(res => setData(res));
+  });
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1 className={"header-text"}>Register Kaffi</h1>
       </header>
+        <AddCup/>
+      <Graph data={data}/>
     </div>
   );
 }
