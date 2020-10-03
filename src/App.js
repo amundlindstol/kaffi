@@ -3,7 +3,6 @@ import logo from './logo.svg';
 import './App.css';
 import AddCup from "./components/firebase/addCup";
 import Graph from "./components/statistics/Graph";
-import GetCups from "./components/functions/getCups";
 import {CoffeeDataContext} from "./contexts/statistics";
 
 const App = () => {
@@ -11,9 +10,8 @@ const App = () => {
   const [data, setData] = useState([]);
 
   useEffect(()=>{
-    context.then(res => {
-      setData(res)})
-  })
+    context.then(res => setData(res));
+  });
   return (
     <div className="App">
       <header className="App-header">
@@ -21,7 +19,6 @@ const App = () => {
         <h1 className={"header-text"}>Register Kaffi</h1>
       </header>
         <AddCup/>
-        <GetCups/>
       <Graph data={data}/>
     </div>
   );

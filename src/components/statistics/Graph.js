@@ -1,47 +1,47 @@
-import React, {useEffect, useState} from 'react';
-import Chart from '@bit/nexxtway.react-rainbow.chart';
-import Dataset from '@bit/nexxtway.react-rainbow.dataset';
+import React, {useEffect} from 'react';
+import "../../../node_modules/react-vis/dist/style.css";
+import {
+  XYPlot,
+  XAxis,
+  YAxis,
+  HorizontalGridLines,
+  VerticalGridLines,
+  AreaSeries
+} from 'react-vis';
+import dayjs from 'dayjs';
+import {parseToGraphData} from './dateParser';
+
 
 const Graph = (props) => {
-  // const { FontAwesomeIcon } = require('@fortawesome/react-fontawesome');
-  // const { faCog, faEllipsisV } = require('@fortawesome/free-solid-svg-icons');
-  const [data, setData] = useState([]);
+  //const [data, setData] = useState([]);
 
   useEffect(() => {
-    stupidCalculating();
+    dayjs.extend(require('dayjs/plugin/customParseFormat'));
+    dayjs.extend(require('dayjs/plugin/dayOfYear'));
+    dayjs.extend(require('dayjs/plugin/weekOfYear'));
   });
 
-  const containerStyles = {
-    width: 1000,
-  };
-
   const stupidCalculating = () => {
-    setData(props.data)
+    //setData(props.data);
+    console.log("calculating...");
+    if (props.data.length === 0) {
+      return [];
+    }
     console.log(props.data);
+
+    let parsedData = parseToGraphData(props.data);
+
+    return parsedData;
   }
 
   return (
-      <div style={containerStyles}>
-        <div>
-          <Chart
-              labels={[0, 17, 35, 52]}
-              type="line"
-          >
-            <Dataset
-                title="Dataset 1"
-                values={data}
-                backgroundColor="#1de9b6"
-                borderColor="#1de9b6"
-            />
-            <Dataset
-                title="Dataset 2"
-                values={[66, 100, 30, 156]}
-                backgroundColor="#01b6f5"
-                borderColor="#01b6f5"
-            />
-          </Chart>
-        </div>
-      </div>
-  )
+    <XYPlot xType="time" width={600} height={300}>
+      <HorizontalGridLines />
+      <VerticalGridLines />
+      <XAxis title="date" />
+      <YAxis title="cups" />
+      <AreaSeries data={stupidCalculating()} curve={'curveMonotoneX'} />
+    </XYPlot>
+  );
 }
 export default Graph;
