@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/kaffi/static/css/main.32884815.chunk.css",
+    "main.js": "/kaffi/static/js/main.c66ae08b.chunk.js",
+    "main.js.map": "/kaffi/static/js/main.c66ae08b.chunk.js.map",
+    "runtime-main.js": "/kaffi/static/js/runtime-main.8d183233.js",
+    "runtime-main.js.map": "/kaffi/static/js/runtime-main.8d183233.js.map",
+    "static/css/2.5a2f7233.chunk.css": "/kaffi/static/css/2.5a2f7233.chunk.css",
+    "static/js/2.69dde09d.chunk.js": "/kaffi/static/js/2.69dde09d.chunk.js",
+    "static/js/2.69dde09d.chunk.js.map": "/kaffi/static/js/2.69dde09d.chunk.js.map",
+    "index.html": "/kaffi/index.html",
+    "precache-manifest.aab01ab06b4037afb7b7be7c3ea6c80d.js": "/kaffi/precache-manifest.aab01ab06b4037afb7b7be7c3ea6c80d.js",
+    "service-worker.js": "/kaffi/service-worker.js",
+    "static/css/2.5a2f7233.chunk.css.map": "/kaffi/static/css/2.5a2f7233.chunk.css.map",
+    "static/css/main.32884815.chunk.css.map": "/kaffi/static/css/main.32884815.chunk.css.map",
+    "static/js/2.69dde09d.chunk.js.LICENSE.txt": "/kaffi/static/js/2.69dde09d.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/kaffi/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8d183233.js",
+    "static/css/2.5a2f7233.chunk.css",
+    "static/js/2.69dde09d.chunk.js",
+    "static/css/main.32884815.chunk.css",
+    "static/js/main.c66ae08b.chunk.js"
+  ]
+}
