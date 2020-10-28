@@ -1,0 +1,37 @@
+$base-background: rgb(51, 51, 51);
+
+.App-logo {
+  height: 10vmin;
+  pointer-events: none;
+}
+
+.grid {
+  opacity: 0.1;
+}
+.axis {
+  opacity: 0.9;
+}
+
+.alert {
+  text-align: center;
+  position: absolute;
+  width: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  z-index: 99;
+}
+
+.row {
+  padding: 2vh;
+}
+
+:root {
+  background-color: $base-background;
+}
+.bgColor {
+  background-color: $base-background;
+}
+.row {
+  background-color: $base-background;
+}
