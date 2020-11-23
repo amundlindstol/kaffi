@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import "../../../node_modules/react-vis/dist/style.css";
 import {
   XYPlot,
@@ -9,39 +9,63 @@ import {
   AreaSeries
 } from 'react-vis';
 import dayjs from 'dayjs';
-import {parseToGraphData} from './dateParser';
-
+import { parseToGraphData } from '../functions/dateParser';
+import RadioButtons from '../buttons/RadioButtons';
+import { Container, Row, Spinner } from 'react-bootstrap';
 
 const Graph = (props) => {
-  //const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
+  const [dimensions, setDimensions] = useState({ 
+    width: window.innerWidth, 
+    height: window.innerHeight, 
+    paddingW: window.innerWidth/10
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+        paddingW: window.innerWidth/10
+      });
+    }
+    window.addEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     dayjs.extend(require('dayjs/plugin/customParseFormat'));
     dayjs.extend(require('dayjs/plugin/dayOfYear'));
     dayjs.extend(require('dayjs/plugin/weekOfYear'));
-  });
+    simpleCalculating();
+  }, [props.data]);
 
-  const stupidCalculating = () => {
-    //setData(props.data);
+  const simpleCalculating = (timePeriod) => {
     console.log("calculating...");
-    if (props.data.length === 0) {
-      return [];
-    }
-    console.log(props.data);
-
-    let parsedData = parseToGraphData(props.data);
-
-    return parsedData;
+    setData(parseToGraphData(props.data, timePeriod));
   }
 
   return (
-    <XYPlot xType="time" width={600} height={300}>
-      <HorizontalGridLines />
-      <VerticalGridLines />
-      <XAxis title="date" />
-      <YAxis title="cups" />
-      <AreaSeries data={stupidCalculating()} curve={'curveMonotoneX'} />
-    </XYPlot>
+    <>
+      <Container fluid>
+      <Row className="justify-content-center">
+        {
+        data.length !== 0 ?
+          <XYPlot xType="time" width={dimensions.width-dimensions.paddingW} height={dimensions.height/4} >
+            <HorizontalGridLines className="grid" />
+            <VerticalGridLines className="grid" />
+            <XAxis title="date" className="axis" />
+            <YAxis title="cups" className="axis" />
+            <AreaSeries data={data} curve={'curveMonotoneX'} />
+          </XYPlot>
+        :
+          <Spinner animation="border" variant="primary"/>
+        }
+        </Row>
+        <Row className="justify-content-center">
+          <RadioButtons simpleCalculating={simpleCalculating}/>
+        </Row>
+      </Container>
+    </>
   );
 }
 export default Graph;

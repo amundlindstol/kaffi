@@ -9,6 +9,9 @@ const period = {
 }
 
 export const parseToGraphData = (rawData, timePeriod=period.DAILY) => {
+    if (rawData.length === 0) {
+        return [];
+    }
     let lastSeen = dayjs(rawData[0].date + " " + rawData[0].time, 'DD/MM/YYYY HH:mm').hour(0).minute(0); //first day
     let timestamp = lastSeen.valueOf(); // milliseconds since the Unix Epoch
     let nCups = 0;
@@ -60,7 +63,7 @@ export const parseToGraphData = (rawData, timePeriod=period.DAILY) => {
       x: timestamp + time,
       y: nCups
     });
-    console.log(parsedData)
+    console.debug(parsedData)
     return parsedData;
 };
 

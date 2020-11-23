@@ -1,8 +1,10 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 
 import { FirebaseContext } from '../../contexts/firebase';
 
-const AddCup = () => {
+
+const AddCup = (props) => {
   const userID = 'userID';
   // const [coffee, setCoffee, getCoffee] = useState({
   //   type: 'fuck',
@@ -43,18 +45,22 @@ const AddCup = () => {
     .push()
     .set(defaultCoffee())
     .then(res => {
-      console.log("success");
+      props.displayAlert({show: true, message: "+1", variant: 'success'})
     }).catch(err => {
       console.log("Could not add coffee to firebase:\n" + err);
+      props.displayAlert({show: true, message: "Could not add coffee", variant: 'danger'})
     });
   };
 
   return (
     <FirebaseContext.Consumer>
-      {firebaseContainer => {
+      {firebaseContainer => (
         // console.log("currentUser: " + firebaseContainer.state.firebase.auth().currentUser);
-        return <button className={"addCoffee"} onClick={() => sendToDb(firebaseContainer.state.firebase)}>AddCup</button>;
-      }}
+        <>
+          <Button variant="primary" onClick={() => sendToDb(firebaseContainer.state.firebase)}>AddCup</Button>{' '}
+        </>
+      )}
+      
     </FirebaseContext.Consumer>
   );
 };
