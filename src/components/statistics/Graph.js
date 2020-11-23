@@ -15,6 +15,22 @@ import { Container, Row, Spinner } from 'react-bootstrap';
 
 const Graph = (props) => {
   const [data, setData] = useState([]);
+  const [dimensions, setDimensions] = useState({ 
+    width: window.innerWidth, 
+    height: window.innerHeight, 
+    paddingW: window.innerWidth/10
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+        paddingW: window.innerWidth/10
+      });
+    }
+    window.addEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     dayjs.extend(require('dayjs/plugin/customParseFormat'));
@@ -31,10 +47,10 @@ const Graph = (props) => {
   return (
     <>
       <Container fluid>
-      <Row className="justify-content-md-center">
+      <Row className="justify-content-center">
         {
         data.length !== 0 ?
-          <XYPlot xType="time" width={window.innerWidth} height={window.innerHeight/4} className="row">
+          <XYPlot xType="time" width={dimensions.width-dimensions.paddingW} height={dimensions.height/4} >
             <HorizontalGridLines className="grid" />
             <VerticalGridLines className="grid" />
             <XAxis title="date" className="axis" />
@@ -45,7 +61,7 @@ const Graph = (props) => {
           <Spinner animation="border" variant="primary"/>
         }
         </Row>
-        <Row className="justify-content-md-center">
+        <Row className="justify-content-center">
           <RadioButtons simpleCalculating={simpleCalculating}/>
         </Row>
       </Container>
